@@ -63,10 +63,10 @@ inv.connect('VDD', 'p1.body')
 inv.connect('VSS', 'n1.source')
 inv.connect('VSS', 'n1.body')
 ```
-Component like nmos, resistor, capacitors etc. 
-may have parameters like width, length etc. 
+Components, such as nmos, resistors, capacitors, etc., 
+may have parameters, such as width, length etc.
 To be able to make the component compatible to Netlist exporting, those parameters should be added to the component. 
-The following code demonstrate how to add parameters to components.
+The following code demonstrates how to add parameters to components.
 ```
 # adding new params to inv
 nmos.set_spice_param('W', 200E-9)
@@ -80,7 +80,7 @@ nmos.set_spice_param('nf',2)
 
 ## Other Commands
 
--   Component can be created from an existing one(clone it):
+-   A component can be created from an existing one(clone it):
     ```
     inv = Component('inv')
     inv.add_pin(Input('A'))
@@ -148,9 +148,9 @@ nmos.set_spice_param('nf',2)
     #	inv i_inv(.A(A1A2), .VDD(HI), .Z());  # connected VDD to tiehi output
     #	tiehi tiehi(.Y(HI));  # added tiehi instance to component
     ```
--   If you want to uniqueness your instances in the netlist, 
-    e.g. every instance of component will be new component
-    you can do this using uniq function: 
+-   If you want to uniquify the instances in the netlist,
+    e.g., every instance of a component will be a new component,
+    you can do this using the ```uniq()``` function:
     ```
     nand.add_subcomponent(inv, 'i_inv2')  
     # now there are two instances of inv component: 'i_inv1', 'i_inv2'
@@ -167,7 +167,7 @@ nmos.set_spice_param('nf',2)
     #	inv_0 i_inv(.A(A1A2), .VDD(HI), .Z());
     #	inv_1 i_inv2(.A(), .VDD(), .Z());
     ```
--   Salamandra also support assignments using `connect_nets` function:
+-   Salamandra also supports assignments using the `connect_nets()` function:
     ```
     inv = Component('inv')
     inv.add_pin(Input('A'))  
@@ -181,8 +181,8 @@ nmos.set_spice_param('nf',2)
     #	//assignments
     #	assign Z = A;
     ```
--   you can flatten your netlist using `flatten` function, this will flatten your
-    netlist until the physical components(checking with __is_physical flag):
+-   You can flatten your netlist using `flatten` function, this will flatten your
+    netlist until the physical components (checking with __is_physical flag):
     ```
     inv.set_is_physical(True)
     and_.set_is_physical(True)
@@ -216,11 +216,12 @@ nmos.set_spice_param('nf',2)
     #	and nand__i_and(.A({A[1:0]}), .Z(nand__A1A2));
     #	inv nand__i_inv(.A(nand__A1A2), .Z(Z));
     ```
-    we can see that it added it's inner nets, subcomponents and their connectivity
-    to himself, with the prefix of belongs ("A1A2" -> "nand__A1A2")
-    
--   You can also add properties to objects(pin/net/bus/component) like add tpd value to pin, or 'is_clk' flag
-    and after that you can filter pins(or subcomponents/nets...) like this:
+    We can see that it added its inner nets, 
+    subcomponents and their connectivity to itself,
+    adding the component name as a prefix (e.g., "A1A2" -> "nand__A1A2")
+        
+-   You can also add properties to objects (pin/net/bus/component) like add tpd value to pin, or 'is_clk' flag
+    and after that you can filter pins (or subcomponents/nets...) like this:
     ```
     inv = Component('inv').set_property('is_optimized', True)  # set_property(property, value)
     inv.add_pin(Input('A').set_property('tpd', 0.1))
@@ -235,11 +236,14 @@ nmos.set_spice_param('nf',2)
     which will return 3 dictionaries, one dict that has all connectivity, forward and backward of pins&nets.
     second dict that has forward connectivity, and third backward connectivity.
     for example:
+    ```     
+    all_connectivity_dict:
+       (('A',Input): [('A',Net)], ('A',Net): [('A',Input),('X.A',Input),..])
     
-    all connectivity dict -(('A',Input): [('A',Net)], ('A',Net): [('A',Input),('X.A',Input),..])
-    
-    forward connectivity dict - (('A',Input): [('A',Net)], ('A',Net): [('X.A',Input)], ('X.A',Input): [('X.O',Output)],..)
- 
+    forward connectivity dict:
+       (('A',Input): [('A',Net)], ('A',Net): [('X.A',Input)], ('X.A',Input): [('X.O',Output)],..)
+    ```
+
 - Before you export your netlist you can add verilog code to your netlist:
     ```
     y = Net('y')
@@ -255,11 +259,11 @@ nmos.set_spice_param('nf',2)
 -   Salamandra currently supports exporting netlists as verilog netlist or as spectre netlist (Cadence's spice simulator).
     The following code will print the verilog netlist to STDOUT using `print_verilog`.
     ```
-    riscv.print_verilog()
+    my_design.print_verilog()
     ```
 -   If you want it to also print all of its descendants (as modules) you can do that using the flag `include_descendants=True`:
     ```
-    riscv.print_verilog(include_descendants=True)
+    my_design.print_verilog(include_descendants=True)
     ```
     You can also write it to a file using `write_verilog_to_file(path)` with `append` flag if you want to append to the file,
     whether it exist or not.
@@ -267,7 +271,7 @@ nmos.set_spice_param('nf',2)
 -   Similarly, less recommended method for exporting into a file, you can use `write_verilog`. 
     The function returns a list of lines defining the component as a verilog module:
     ```
-    f = open('sfpga.v', 'w')
+    f = open('module.v', 'w')
     for l in sfpga.write_verilog():
        f.write(l+'\n')
     f.close()
@@ -277,10 +281,10 @@ nmos.set_spice_param('nf',2)
     ```
     comp.print_spectre()
     ```
-    or any of the verilog functions above, for spectre(`write_spectre_to_file`,...)
+    or any of the verilog functions above, for spectre (`write_spectre_to_file`, etc.)
     
-Note: You might want to run legalize() on the component before exporting, to check for unexportable structures
-such as partially-connected busses. If it finds such problems, legalize() will try to fix
+Note: You might want to run `legalize()` on the component before exporting, to check for unexportable structures
+such as partially-connected busses. If it finds such problems, `legalize()` will try to fix
 what it can. For example, it will connect the undriven bits of a bus to ```{1'bx}``` and connect. 
 unloaded outputs/inouts to ```UC_###``` nets.
 
@@ -291,16 +295,16 @@ The following code will read the verilog netlist and convert it to components in
 
 `components = verilog2slm_file('verilog_file.v')`
 
-it's also support reading an STD cells(takes only I/Os of the modules)
+it also supports reading an STD cells (takes only I/Os of the modules)
 
 `std_components = verilog2slm_file('std_cells.v',  is_std_cell=True)`
-Note: there is an std_cells.v file in verilog_files/more
+Note: there is a sample std_cells.v file under `verilog_files/more`
 
 and if you want to enable implicit wires you can also
 enable it through the flag `implicit_wire=True`
 
 as well you can enable the flag `implicit_instance` to let salamandra guess components
-if it doesn't shown in the text or not created before. 
+if it isn't shown in the text or not created before. 
 
 The same way you can import spectre netlist using `spectre2slm`:
 
@@ -310,7 +314,7 @@ The same way you can import spectre netlist using `spectre2slm`:
 Salamandra was first developed by [Tzachi Noy](https://github.com/noytzach) for internal use at EnICS labs.
 [Bnayah Levy](https://github.com/SwarleyBL) later joined and helped cleaning, restructuring and adding lots of useful features.
 
-We are willing to contributions from the community. We follow the "fork-and-pull" Git workflow.
+We are open to contributions from the community. We follow the "fork-and-pull" Git workflow.
 * Fork the repo on GitHub
 * Clone the project to your own machine
 * Commit changes to your own branch
@@ -321,3 +325,6 @@ We are willing to contributions from the community. We follow the "fork-and-pull
 
 Feel free to [submit](https://github.com/enics-labs/salamandra/issues) issues and enhancement requests.
 
+## Publication
+Please acknowledge Salamandra if you use it in a 
+published or presented research project.
