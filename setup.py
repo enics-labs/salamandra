@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
         name="salamandra",
-        version="1.00",
+        version="1.01",
         author="Tzachi Noy",
         author_email="tzachi.noy@biu.ac.il",
         description="Framework for describing hierarchical systems",
@@ -16,7 +16,7 @@ setuptools.setup(
         packages=setuptools.find_packages(),
         classifiers=[
             "Programming Language :: Python :: 3",
-            "License :: OSI Approved :: MIT License",
+            "License :: OSI Approved :: Apache Software License",
             "Operating System :: OS Independent",
             ],
         python_requires='>=3.5',

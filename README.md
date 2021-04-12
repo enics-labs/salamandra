@@ -308,7 +308,7 @@ The same way you can import spectre netlist using `spectre2slm`:
 
 ## Contributions
 Salamandra was first developed by [Tzachi Noy](https://github.com/noytzach) for internal use at EnICS labs.
-[Bnayah Levy]() later joined and helped cleaning, restructuring and adding lots of useful features.
+[Bnayah Levy](https://github.com/SwarleyBL) later joined and helped cleaning, restructuring and adding lots of useful features.
 
 We are willing to contributions from the community. We follow the "fork-and-pull" Git workflow.
 * Fork the repo on GitHub
