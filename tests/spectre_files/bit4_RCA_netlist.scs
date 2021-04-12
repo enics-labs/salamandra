@@ -1,0 +1,70 @@
+// Copyright 2021 EnICS Labs, Bar-Ilan University.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+
+// Cell name: INV_DML_B
+// View name: schematic
+subckt INV_DML_B IN CLK OUT VDD VSS
+ends INV_DML_B
+// End of subcircuit definition
+
+// Cell name: XOR_dml_A_footer_D1
+// View name: schematic
+subckt XOR_dml_A_footer_D1 A B OUT VDD VSS CLK
+ends XOR_dml_A_footer_D1
+// End of subcircuit definition
+
+// Cell name: BUFF_DML_BtoCMOS
+// View name: schematic
+subckt BUFF_DML_BtoCMOS IN CLK OUT VDD VSS
+ends BUFF_DML_BtoCMOS
+// End of subcircuit definition
+
+// Cell name: CG_A
+// View name: schematic
+subckt CG_A S C_in C CLK C_out VDD VSS
+ends CG_A
+// End of subcircuit definition
+
+// Cell name: XOR2D0BWP16P90CPD
+// View name: schematic
+subckt XOR2D0BWP16P90CPD A1 A2 Z VDD VPP VSS VBB
+ends XOR2D0BWP16P90CPD
+// End of subcircuit definition
+
+// Cell name: INVD0BWP16P90CPD
+// View name: schematic
+subckt INVD0BWP16P90CPD I ZN VDD VPP VSS VBB
+ends INVD0BWP16P90CPD
+// End of subcircuit definition
+
+// Cell name: CG_B
+// View name: schematic
+subckt CG_B S C_in C CLK C_out VDD VSS
+ends CG_B
+// End of subcircuit definition
+
+// Cell name: bit4_RCA
+// View name: schematic
+BUFF_DML_BtoCMOS_C0 (C0 CLK net_C0 VDD VSS) BUFF_DML_BtoCMOS 
+BUFF_DML_BtoCMOS_C2 (C2 CLK net_C2 VDD VSS) BUFF_DML_BtoCMOS 
+BUFF_DML_BtoCMOS_S0 (S0 CLK net_S0 VDD VSS) BUFF_DML_BtoCMOS 
+BUFF_DML_BtoCMOS_S2 (S2 CLK net_S2 VDD VSS) BUFF_DML_BtoCMOS 
+CG_A1 (net_S1 net0 net_C1 CLK_b net1 VDD VSS) CG_A 
+CG_A3 (net_S3 net2 net_C3 CLK_b C_out VDD VSS) CG_A 
+CG_B0 (net_S0 C_in net_C0 CLK net0 VDD VSS) CG_B 
+CG_B2 (net_S2 net1 net_C2 CLK net2 VDD VSS) CG_B 
+INVD0BWP16P90CPD0 (net0 net_O0 VDD VDD VSS VSS) INVD0BWP16P90CPD 
+INVD0BWP16P90CPD2 (net2 net_O2 VDD VDD VSS VSS) INVD0BWP16P90CPD 
+INV_DML_B_C1 (C1 CLK net_C1 VDD VSS) INV_DML_B 
+INV_DML_B_C3 (C3 CLK net_C3 VDD VSS) INV_DML_B 
+INV_DML_B_S1 (S1 CLK net_S1 VDD VSS) INV_DML_B 
+INV_DML_B_S3 (S3 CLK net_S3 VDD VSS) INV_DML_B 
+XOR2D0BWP16P90CPD_O2 (net1 P2 O2 VDD VDD VSS VSS) XOR2D0BWP16P90CPD 
+XOR2D0BWP16P90CPD_O0 (C_in P0 O0 VDD VDD VSS VSS) XOR2D0BWP16P90CPD 
+XOR2D0BWP16P90CPD_O1 (net_O0 P1 O1 VDD VDD VSS VSS) XOR2D0BWP16P90CPD 
+XOR2D0BWP16P90CPD_O3 (net_O2 P3 O3 VDD VDD VSS VSS) XOR2D0BWP16P90CPD 
+XOR_dml_A_footer_D1_P0 (net_S0 net_C0 P0 VDD VSS CLK) XOR_dml_A_footer_D1 
+XOR_dml_A_footer_D1_P1 (S1 C1 P1 VDD VSS CLK) XOR_dml_A_footer_D1 
+XOR_dml_A_footer_D1_P2 (net_S2 net_C2 P2 VDD VSS CLK) XOR_dml_A_footer_D1 
+XOR_dml_A_footer_D1_P3 (S3 C3 P3 VDD VSS CLK) XOR_dml_A_footer_D1 

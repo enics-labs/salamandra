@@ -1,0 +1,29 @@
+// Copyright 2021 EnICS Labs, Bar-Ilan University.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+
+// Cell name: pch_svt_mac
+// View name: schematic
+subckt pch_svt_mac D G S B
+ends pch_svt_mac
+// End of subcircuit definition
+
+// Cell name: nch_svt_mac
+// View name: schematic
+subckt nch_svt_mac D G S B
+ends nch_svt_mac
+// End of subcircuit definition
+
+// Cell name: CG_A
+// View name: schematic
+M0 (C_out C_in n20 VSS) nch_svt_mac l=6e-08 Multiplier=2 w=2e-07
+M1 (C_out S n21 VSS) nch_svt_mac l=6e-08 Multiplier=2 w=2e-07
+M2 (n20 S VSS VSS) nch_svt_mac l=6e-08 Multiplier=2 w=2e-07
+M3 (n20 C VSS VSS) nch_svt_mac l=6e-08 Multiplier=2 w=2e-07
+M4 (n21 C VSS VSS) nch_svt_mac l=6e-08 Multiplier=2 w=2e-07
+M5 (n22 S VDD VDD) pch_svt_mac l=6e-08 Multiplier=1 w=2e-07
+M6 (n22 C VDD VDD) pch_svt_mac l=6e-08 Multiplier=1 w=2e-07
+M7 (n23 C VDD VDD) pch_svt_mac l=6e-08 Multiplier=1 w=2e-07
+M8 (C_out C_in n22 VDD) pch_svt_mac l=6e-08 Multiplier=1 w=2e-07
+M9 (C_out S n23 VDD) pch_svt_mac l=6e-08 Multiplier=1 w=2e-07
+M10 (C_out CLK VDD VDD) pch_svt_mac l=6e-08 Multiplier=1 w=2e-07

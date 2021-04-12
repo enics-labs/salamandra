@@ -1,0 +1,29 @@
+// Copyright 2021 EnICS Labs, Bar-Ilan University.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+
+simulator lang = spectre
+
+// Cell name: AND4_DML_BtoA
+// View name: schematic
+subckt AND4_DML_BtoA IN_0 IN_1 IN_2 IN_3 CLK CLK_b OUT VDD VSS
+ends AND4_DML_BtoA
+// End of subcircuit definition
+
+// Cell name: bit4_RCA
+// View name: schematic
+subckt bit4_RCA S0 C0 P0 O0 S1 C1 P1 O1 S2 C2 P2 O2 S3 C3 P3 O3 C_in CLK CLK_b C_out VDD VSS
+ends bit4_RCA
+// End of subcircuit definition
+
+// Cell name: MUX2_DML_BtoA
+// View name: schematic
+subckt MUX2_DML_BtoA SEL IN_0 IN_1 CLK CLK_b OUT VDD VSS
+ends MUX2_DML_BtoA
+// End of subcircuit definition
+
+// Cell name: carry_skip_adder
+// View name: schematic
+AND4_DML_BtoA (net_P0 net_P1 net_P2 net_P3 CLK CLK_b net_SEL VDD VSS) AND4_DML_BtoA 
+MUX2_DML_BtoA (net_SEL net_C_out C_in CLK CLK_b C_out VDD VSS) MUX2_DML_BtoA 
+bit4_RCA (S0 C0 net_P0 O0 S1 C1 net_P1 O1 S2 C2 net_P2 O2 S3 C3 net_P3 O3 C_in CLK CLK_b net_C_out VDD VSS) bit4_RCA 

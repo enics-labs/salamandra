@@ -1,0 +1,28 @@
+// Copyright 2021 EnICS Labs, Bar-Ilan University.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+
+simulator lang = spectre
+
+subckt subckt_1 (p1 n1 p2 n2)
+    parameters zodd=50 zeven=50 veven=1 vodd=1 len=0
+    comp1 (p1 n1 p2 n2) comp1 z0=zodd vel=vodd len=len
+    comp2 (p1 0 e1 c1) comp2 t1=2 t2=1
+
+    subckt comp2 p1 n1 p2 n2
+    ends comp2
+ends subckt_1
+
+subckt_1 A B C D subckt_1
+
+comp1 A B E F comp1
+
+subckt comp1 p1 n1 p2 n2
+ends comp1
+
+// model
+model npn bjt type=npn bf=80 rb=100 vaf=50 cjs=2pf tf=0.3ns tr=6ns cje=3pf cjc=2pf
+
+// Analyses
+OpPoint dc
+Sparams sp start=100M stop=100G dec=100
