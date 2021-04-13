@@ -15,8 +15,8 @@ def main():
 
 def test(is_metatest):
     # create nmos and pmos to be able to read spectre file
-    pmos = Component('pch_lvt_mac')
-    nmos = Component('nch_lvt_mac')
+    pmos = Component('pch')
+    nmos = Component('nch')
     comps = [pmos, nmos]
     for com in comps:
         com.add_pin(Inout('D'))
