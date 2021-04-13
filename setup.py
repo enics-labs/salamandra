@@ -6,13 +6,16 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
         name="salamandra",
-        version="1.01",
+        version="1.0.1",
         author="Tzachi Noy",
         author_email="tzachi.noy@biu.ac.il",
-        description="Framework for describing hierarchical systems",
+        description="Framework for netlist manipulation",
         long_description=long_description,
         long_description_content_type="text/markdown",
-        url="http://enicslabs.com/",
+        url="https://github.com/enics-labs/salamandra",
+        project_urls={
+            "EnICS Labs": "https://enicslabs.com/"
+        },
         packages=setuptools.find_packages(),
         classifiers=[
             "Programming Language :: Python :: 3",

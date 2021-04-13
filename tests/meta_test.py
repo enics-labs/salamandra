@@ -9,7 +9,7 @@ from salamandra import *
 
 
 tests = [f[:-3] for f in glob.glob("test_*.py")]  # all tests files
-tests.remove('test_topological')
+#tests.remove('test_topological')
 
 success = 0
 print('Tests Running\n')
